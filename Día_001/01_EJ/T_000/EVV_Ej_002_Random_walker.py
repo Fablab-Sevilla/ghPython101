@@ -1,13 +1,13 @@
-﻿"""" =====================================
-Mini-project # 002
-Random Walker
-v.1(10/11/2015)
-Enrique Vazquez
-=========================================
+﻿# =====================================
+# Mini-project # 002
+# Random Walker
+# v.1.1(10/11/2015)
+# Enrique Vazquez
+# =========================================
 
-Traza una ruta aleatoria partiendo de un punto
+# Traza una ruta aleatoria partiendo de un punto
 
-"""
+
 
 # Carga de librerias --------------------
 import math as m
@@ -28,9 +28,9 @@ listPt.append(newPt) # añade a la lista el punto inicial
 rd.seed(s)
 
 
-""" Cuerpo de la rutina.
-Generación de los puntos y lineas de la ruta
-------------------------------------------"""
+# Cuerpo de la rutina.
+# Generación de los puntos y lineas de la ruta
+# ------------------------------------------
 for i in range(1,It):
     m=rd.randint(-1,1)
     n=rd.randint(-1,1)
