@@ -63,5 +63,5 @@ target/
 
 #Eclipse PyDev
 
-*.pydevproject
-*.project
+.pydevproject
+.project
