@@ -1,7 +1,6 @@
 ﻿import Rhino.Geometry as rg
 import rhinoscriptsyntax as rs
 import random as rd
-import math as m
 
 def addPolygon(p,n):
     #inicializamos pts para diferenciarla de pts global
