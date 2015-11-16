@@ -1,4 +1,11 @@
-﻿import Rhino.Geometry as rg
+﻿'''
+En este ejemplo se han mezclado los dos componentes antes separados
+y se ha convertido el código de planarize.py en una función que
+devuelve una lista de datos
+
+'''
+
+import Rhino.Geometry as rg
 from Grasshopper import DataTree as Tree
 from Grasshopper.Kernel.Data import GH_Path as Path
 
@@ -86,10 +93,14 @@ for i in range(uDiv):
         
         polList.append(rg.Polyline([pt0,pt1,pt3,pt2,pt0]))
         
-for  i in range(ptTree.BranchCount):
-    
+# Loop para iterar en el arbol de datos creado en el loop anterior
+for  i in range(ptTree.BranchCount):    
     panels.append(planarize(ptTree.Branch(Path(i)),tol))            
 
+
+'''
+## Salida de datos
+'''
 panel = polList
 # Salida de datos de nuestra lista
 fpanel = [p[0] for p in panels]  
