@@ -8,7 +8,12 @@ def planarize(pts,T):
     '''
     Creates a planar quad panel from a serie of 4 points projecting one of
     those over a plane defined by the other 3 points.
+    
+    Returns a list where [0] is a polyline 
+    and [1] is the panel area (Float).
     '''
+    
+    data = []
     
     #Creamos un plano con tres puntos cualesquiera
     plane = rg.Plane(pts[0],pts[1],pts[2])
@@ -30,15 +35,18 @@ def planarize(pts,T):
         l1 = rg.Line(pts[1],pts[3])
         lines.extend([l0,l1])
 
-        #Creamos la polilinea de cada panel y calculamos su area    
-        pol = rg.PolylineCurve((pts[0],pts[1],pts[2],pts[3],pts[0]))
+    #Creamos la polilinea de cada panel y calculamos su area    
+    pol = rg.PolylineCurve((pts[0],pts[1],pts[2],pts[3],pts[0]))
 
-        areaObj = rg.AreaMassProperties.Compute(pol)
-        area = areaObj.Area
+    areaObj = rg.AreaMassProperties.Compute(pol)
+    area = areaObj.Area
 
-        w = lines
+    w = lines
+        
+    data.extend([pol,area])
+    return data
 
-
+panels = []
 ptList = []
 polList = []
 
@@ -54,8 +62,10 @@ for i in range(uDiv+1):
         ptListTemp.append(ptTemp)
         
     ptList.append(ptListTemp)
-    
+
+# Contador necesario para crear una rama de datos por cada panel   
 counter = 0
+
 for i in range(uDiv):
     for j in range(vDiv):
         
@@ -78,8 +88,9 @@ for i in range(uDiv):
         
 for  i in range(ptTree.BranchCount):
     
-    planarize(ptTree.Branch(Path(i)),tol)
-        
-        
-        
-panel = polList    
+    panels.append(planarize(ptTree.Branch(Path(i)),tol))            
+
+panel = polList
+# Salida de datos de nuestra lista
+fpanel = [p[0] for p in panels]  
+area = [p[1] for p in panels]
