@@ -1,5 +1,5 @@
 ﻿import Rhino.Geometry as rg
-import 
+
 
 #Creamos un plano con tres puntos cualesquiera
 plane = rg.Plane(pts[0],pts[1],pts[2])
