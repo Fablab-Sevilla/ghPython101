@@ -1,4 +1,13 @@
-﻿import Rhino.Geometry as rg
+﻿'''
+Ejercicio 03. v02
+
+CONTROL DE CAMBIOS
+
+Depurado del código y ordenar los elementos por grupos.
+
+'''
+
+import Rhino.Geometry as rg
 import rhinoscriptsyntax as rs
 
 ptList = []
@@ -6,7 +15,7 @@ ptListP = []
 pl = []
 triP = []
 
-#Obtenemos puntos de la superficie en una lista de lista
+#Obtenemos puntos de la superficie en una lista de lista. Matriz
 for i in range(uDiv+1):
     ptListTemp = []
     for j in range(vDiv+1):
@@ -18,32 +27,25 @@ for i in range(uDiv+1):
 #dibujar polilinea de 4 lados no coplanarios.
 for i in range(uDiv):
     for j in range(vDiv):
-        #puntos
+        #puntos para cada subdivision que recorre la superficie
         pt1 = ptList[i][j]
         pt2 = ptList[i+1][j]
         pt3 = ptList[i+1][j+1]
         pt4 = ptList[i][j+1]
-        #Añadimos polilinea a una lista para sacar el resultado
+        
+        #Añadimos polilineas a una lista para sacar el resultado
         pl.append(rg.Polyline([pt1,pt2,pt3,pt4,pt1]))
-
-#superficie triangulando A-B
-for i in range(uDiv):
-    for j in range(vDiv):
         
-        #Triangulando malla A
+        #Generamos para cada triangulo una lista de tres puntos
         trianguloA = []
-        pt5 = ptList[i][j]
-        pt6 = ptList[i+1][j]
-        pt7 = ptList[i][j+1]
-        trianguloA.append(pt5)
-        trianguloA.append(pt6)
-        trianguloA.append(pt7)
-        triP.append(rs.AddSrfPt(trianguloA))
-        
-        #Triangulando malla B
         trianguloB = []
-        pt8 = ptList[i+1][j+1]
-        trianguloB.append(pt6)
-        trianguloB.append(pt7)
-        trianguloB.append(pt8)
+        trianguloA.append(pt1)
+        trianguloA.append(pt2)
+        trianguloA.append(pt4)
+        trianguloB.append(pt2)
+        trianguloB.append(pt4)
+        trianguloB.append(pt3)
+        
+        #creo las superficies que barren la superficie
+        triP.append(rs.AddSrfPt(trianguloA))
         triP.append(rs.AddSrfPt(trianguloB))
