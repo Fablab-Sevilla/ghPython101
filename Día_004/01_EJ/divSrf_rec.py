@@ -54,14 +54,14 @@ def divSrf(uD,vD,srf):
         uvPtList.append(uvPtTemp)
         
    
-#     pan = createPanel(ptList, T)
-#      
-#     # limitando iteraciones
-#     for d in pan[1]:
-#            
-#         if d > T:
-#                
-#             a = 1
+    pan = createPanel(ptList, T)
+      
+    # limitando iteraciones
+    for d in pan[1]:
+            
+        if d > T:
+                
+            a = 1
         
     return [ptList,uvPtList]
 
@@ -71,13 +71,13 @@ def createPanel(pts,T):
     devList = []
     counter = 0
     
-    for i in len(pts)-1:
-        for j in len(pts[i]-1):
+    for i in range(len(pts)-1):
+        for j in range(len(pts[i])-1):
             
-            pt0 = ptList[i][j]
-            pt1 = ptList[i+1][j]
-            pt2 = ptList[i][j+1]
-            pt3 = ptList[i+1][j+1]
+            pt0 = pts[i][j]
+            pt1 = pts[i+1][j]
+            pt2 = pts[i][j+1]
+            pt3 = pts[i+1][j+1]
             
             plane = rg.Plane(pt0,pt1,pt2)
             newPt3 = plane.ClosestPoint(pt3)
@@ -97,28 +97,5 @@ ptList = panels[0]
 uvPtList = panels[1]
 
 
-counter = 0
-for i in range(uDiv):
-    for j in range(vDiv):
-    
-        pt0 = ptList[i][j]
-        pt1 = ptList[i+1][j]
-        pt2 = ptList[i][j+1]
-        pt3 = ptList[i+1][j+1]
-    
-        
-        plane = rg.Plane(pt0,pt1,pt2)
-        newPt3 = plane.ClosestPoint(pt3)
-        dev = pt3.DistanceTo(newPt3)
-        pt3 = newPt3
-        
-        
-        
-        
-        #ptTree.AddRange([pt0,pt1,pt3,pt2],Path(counter))
-        #counter += 1
-        polList.append(rg.Polyline([pt0,pt1,pt3,pt2,pt0]))
-    
-    
         
 panel = polList    
