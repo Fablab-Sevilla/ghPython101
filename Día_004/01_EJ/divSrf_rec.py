@@ -20,7 +20,7 @@ def lerp(a,b,x):
     
     return ((b-a)*x)+a
 
-def divSrf(uD,vD,srf):
+def divSrf(u,v,uD,vD,srf):
     '''
     Creates panels in a surface given the number of
     divisions in u and v direction, using T as tolerance
@@ -43,8 +43,8 @@ def divSrf(uD,vD,srf):
             
             # Transforming [0,1] domain coortinates to Surface
             # domain
-            cU = lerp(srf.Domain(0)[0],srf.Domain(0)[1],i/uD)
-            cV = lerp(srf.Domain(1)[0],srf.Domain(1)[1],j/vD)
+            cU = lerp(u[0],u[1],i/uD)
+            cV = lerp(v[0],v[1],j/vD)
         
             ptTemp = srf.Evaluate(cU,cV,2)[1]
             ptListTemp.append(ptTemp)
@@ -54,21 +54,23 @@ def divSrf(uD,vD,srf):
         uvPtList.append(uvPtTemp)
         
    
-    pan = createPanel(ptList, T)
+    pan = createPanel(ptList,uvPtList, T)
       
     # limitando iteraciones
-    for d in pan[1]:
+    for i in range(len(pan[1])):
             
-        if d > T:
-                
-            a = 1
+        if pan[1][i] > T:
+            
+            #Queda transformar el Point2D en domain  
+            divSrf(pan[2][0],pan[2][1],uD, vD, srf)
         
     return [ptList,uvPtList]
 
-def createPanel(pts,T):
+def createPanel(pts,uv,T):
     
     polList = []
     devList = []
+    uvList = []
     counter = 0
     
     for i in range(len(pts)-1):
@@ -79,6 +81,10 @@ def createPanel(pts,T):
             pt2 = pts[i][j+1]
             pt3 = pts[i+1][j+1]
             
+            #Fetching the domain limits for the panel
+            pt0UV = uv[i][j]
+            pt3UV = uv[i+1][j+1]
+            
             plane = rg.Plane(pt0,pt1,pt2)
             newPt3 = plane.ClosestPoint(pt3)
             dev = pt3.DistanceTo(newPt3)
@@ -86,13 +92,14 @@ def createPanel(pts,T):
             
             polList.append(rg.Polyline([pt0,pt1,pt3,pt2,pt0]))
             devList.append(dev)
+            uvList.append([pt0UV,pt3UV])
             pass
     
-    return [polList,devList]
+    return [polList,devList,uvList]
     pass
 
 
-panels = divSrf(uDiv,vDiv,srf)
+panels = divSrf(srf.Domain(0),srf.Domain(1),uDiv,vDiv,srf)
 ptList = panels[0]
 uvPtList = panels[1]
 
