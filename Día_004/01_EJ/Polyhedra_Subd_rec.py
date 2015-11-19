@@ -5,12 +5,14 @@ import ghpythonlib.components as gh
 M = gh.SimpleMesh(Brep)
 
 centerList = []
-newMeshes = rg.Mesh()
+
 
 # We need to compute mesh normals before accessing them
 M.Normals.ComputeNormals()
 
 def subDMesh(M,dist,gen):
+    
+    newMeshes = rg.Mesh()
     
     for i in range(M.Faces.Count):
         meshNew = rg.Mesh()
@@ -62,9 +64,17 @@ def subDMesh(M,dist,gen):
         meshNew.Compact()
     
         newMeshes.Append(meshNew)
-        centerList.append(center)
+    
+    # Mientras que nos sigan quedando iteraciones    
+    if gen>0:
+            
+        return subDMesh(newMeshes, dist/2, gen-1)
+                        
+    else: return newMeshes
         
-    return newMeshes
+        #centerList.append(center)
+        
+    
 
 
 
