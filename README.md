@@ -1,6 +1,6 @@
 # ghPython101
 
-![alt tag](https://github.com/Fablab-Sevilla/ghPython101/blob/master/Cartel_blanco.jpg)
+![alt tag](https://github.com/Fablab-Sevilla/ghPython101/blob/D_003/D%C3%ADa_004/01_EJ/poly.jpg)
 
 Documentation and exercises from ghPython101 course.
 
