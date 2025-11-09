@@ -44,21 +44,21 @@ def subDMesh(M,dist,gen):
             
             meshNew.Faces.AddFace(k,k1,4)
     
-#         #Traducción manual del loop k
-#         # Caras de 4 lados
-#         if len(vertex)==5:
-#          
-#             meshNew.Faces.AddFace(0,1,4)
-#             meshNew.Faces.AddFace(1,2,4)
-#             meshNew.Faces.AddFace(2,3,4)
-#             meshNew.Faces.AddFace(3,0,4)
-#          
-#         # Caras de 3 lados    
-#         elif len(vertex)==4:
-#              
-#             meshNew.Faces.AddFace(0,1,4)
-#             meshNew.Faces.AddFace(1,2,4)
-#             meshNew.Faces.AddFace(2,0,4)
+        #Traducción manual del loop k
+        # Caras de 4 lados
+        if len(vertex)==5:
+         
+            meshNew.Faces.AddFace(0,1,4)
+            meshNew.Faces.AddFace(1,2,4)
+            meshNew.Faces.AddFace(2,3,4)
+            meshNew.Faces.AddFace(3,0,4)
+         
+        # Caras de 3 lados    
+        elif len(vertex)==4:
+             
+            meshNew.Faces.AddFace(0,1,4)
+            meshNew.Faces.AddFace(1,2,4)
+            meshNew.Faces.AddFace(2,0,4)
     
         meshNew.Normals.ComputeNormals()
         meshNew.Compact()
